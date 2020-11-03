@@ -83,7 +83,7 @@ export function getProfile (formInputs, userOnly=false) {
       const dateSortie = field.value.split('-')
       value = `${dateSortie[2]}/${dateSortie[1]}/${dateSortie[0]}`
     }
-    if (typeof value === 'string') {
+    if (typeof value === 'string' && !userOnly) {
       value = toAscii(value)
     }
     fields[field.id.substring('field-'.length)] = value

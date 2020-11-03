@@ -6,6 +6,8 @@ import formData from '../form-data.json'
 
 import { $, appendTo, createElement } from './dom-utils'
 
+const user = window.localStorage.getItem('user');
+
 const createTitle = () => {
   const h2 = createElement('h2', { className: 'titre-2', innerHTML: 'Remplissez en ligne votre déclaration numérique : ' })
   const p = createElement('p', { className: 'msg-info', innerHTML: 'Tous les champs sont obligatoires.' })
@@ -59,6 +61,12 @@ const createFormGroup = ({
   }
 
   const input = createElement('input', inputAttrs)
+
+  if(user) {
+    const jsonUser = JSON.parse(user);
+    const userFields = ["firstname", "lastname", "birthday", "placeofbirth", "address", "city", "zipcode"]
+    if (userFields.includes(name)) input.value = jsonUser[name]
+  }
 
   if (name === 'heuresortie') {
     input.value = getCurrentTime()

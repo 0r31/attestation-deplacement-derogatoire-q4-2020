@@ -67,9 +67,17 @@ export function toAscii (string) {
   const asciiString = accentsRemoved.replace(/[^\x00-\x7F]/g, '') // eslint-disable-line no-control-regex
   return asciiString
 }
-export function getProfile (formInputs) {
+export function getProfile (formInputs, userOnly=false) {
+  const filteredUserFields = (element) => {
+    if(userOnly) {
+      const userFields = ["firstname", "lastname", "birthday", "placeofbirth", "address", "city", "zipcode"]
+      return userFields.includes(element.name)
+    }
+    return true
+  }
+
   const fields = {}
-  for (const field of formInputs) {
+  for (const field of formInputs.filter(filteredUserFields)) {
     let value = field.value
     if (field.id === 'field-datesortie') {
       const dateSortie = field.value.split('-')
@@ -138,6 +146,8 @@ export function prepareInputs (formInputs, reasonInputs, reasonFieldset, reasonA
     if (invalid) {
       return
     }
+
+    window.localStorage.setItem('user', JSON.stringify(getProfile(formInputs, true)))
 
     const pdfBlob = await generatePdf(getProfile(formInputs), reasons, pdfBase)
 

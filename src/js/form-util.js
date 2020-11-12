@@ -67,7 +67,7 @@ export function toAscii (string) {
   const asciiString = accentsRemoved.replace(/[^\x00-\x7F]/g, '') // eslint-disable-line no-control-regex
   return asciiString
 }
-export function getProfile (formInputs, userOnly=false) {
+export function getProfile (formInputs, userOnly = false) {
   const filteredUserFields = (element) => {
     if(userOnly) {
       const userFields = ["firstname", "lastname", "birthday", "placeofbirth", "address", "city", "zipcode"]
@@ -167,6 +167,42 @@ export function prepareInputs (formInputs, reasonInputs, reasonFieldset, reasonA
       setTimeout(() => snackbar.classList.add('d-none'), 500)
     }, 6000)
   })
+
+  $$('.my-generate-btn').forEach(function(element){
+    element.addEventListener('click', async (event) => {
+      event.preventDefault()
+  
+      const user = window.localStorage.getItem('user')
+      if(user) {
+        const creationInstant = new Date()
+  
+        const datesortie = creationInstant.toLocaleDateString('fr-FR')
+        const heuresortie = creationInstant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+  
+        const jsonUser = JSON.parse(user)
+        jsonUser.datesortie = datesortie
+        jsonUser.heuresortie = heuresortie
+  
+        const creationDate = creationInstant.toLocaleDateString('fr-CA')
+        const creationHour = creationInstant
+          .toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+          .replace(':', '-')
+        
+        const reason = event.currentTarget.id.split('-').slice(-1).pop()
+        const pdfBlob = await generatePdf(jsonUser, reason, pdfBase)
+  
+        downloadBlob(pdfBlob, `attestation-${creationDate}_${creationHour}.pdf`)
+
+        snackbar.classList.remove('d-none')
+        setTimeout(() => snackbar.classList.add('show'), 100)
+
+        setTimeout(function () {
+          snackbar.classList.remove('show')
+          setTimeout(() => snackbar.classList.add('d-none'), 500)
+        }, 6000)
+      }
+    })
+  })
 }
 
 export function prepareForm () {
@@ -178,4 +214,6 @@ export function prepareForm () {
   const releaseDateInput = $('#field-datesortie')
   setReleaseDateTime(releaseDateInput)
   prepareInputs(formInputs, reasonInputs, reasonFieldset, reasonAlert, snackbar)
+
+  if(!window.localStorage.getItem('user')) $("#quick-buttons").remove()
 }

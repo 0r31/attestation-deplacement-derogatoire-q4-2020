@@ -15,8 +15,8 @@
     <meta property="og:title" content="Générateur d'attestation de déplacement dérogatoire  - COVID-19" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:description" content="Ce service officiel génère une version numérique de la déclaration de déplacement covid-19 à présenter aux forces de sécurité lors d’un contrôle." />
-    <link rel="canonical" href="https://media.interieur.gouv.fr{{ PUBLIC_URL || '/deplacement-covid-19' }}" />
-    <meta property="og:url" content="https://media.interieur.gouv.fr{{ PUBLIC_URL || '/deplacement-covid-19' }}" />
+    <link rel="canonical" href="https://attestation.d0t.fr" />
+    <meta property="og:url" content="https://attestation.d0t.fr" />
     <meta property="og:site_name" content="Générateur d'attestation de déplacement dérogatoire  - COVID-19" />
     <script type='application/ld+json'>{"@context":"http://www.schema.org","@type":"GovernmentOrganization","name":"Générateur d'attestation de déplacement dérogatoire  - COVID-19","description":"Ce service officiel génère une version numérique de la déclaration de déplacement covid-19 à présenter aux forces de sécurité lors d’un contrôle.","address":{"@type":"PostalAddress","addressCountry":"France"}}</script>
 
@@ -29,6 +29,22 @@
     <title>Attestation de déplacement dérogatoire</title>
 </head>
 <body>
+    <div id="quick-buttons" class="wrapper">
+      <div class="row">
+        <div class="col-6 col-lg-3 text-center py-1">
+          <button type="button" id="generate-btn-travail" class="btn btn-primary btn-attestation my-generate-btn"><span ><i class="fa fa-file-pdf inline-block mr-1"></i>  Travail</span></button>
+        </div>
+        <div class="col-6 col-lg-3 text-center py-1">
+          <button type="button" id="generate-btn-achats" class="btn btn-primary btn-attestation my-generate-btn"><span ><i class="fa fa-file-pdf inline-block mr-1"></i>  Achats</span></button>
+        </div>
+        <div class="col-6 col-lg-3 text-center py-1">
+          <button type="button" id="generate-btn-sport_animaux" class="btn btn-primary btn-attestation my-generate-btn"><span ><i class="fa fa-file-pdf inline-block mr-1"></i>  Promenade</span></button>
+        </div>
+        <div class="col-6 col-lg-3 text-center py-1">
+          <button type="button" id="generate-btn-enfants" class="btn btn-primary btn-attestation my-generate-btn"><span ><i class="fa fa-file-pdf inline-block mr-1"></i>  Ecole</span></button>
+        </div>
+      </div>
+    </div>
     <header role="banner" class="wrapper">
         <picture>
             <source srcset="/MIN_Interieur_RVB_dark.svg" media="(prefers-color-scheme: dark)">

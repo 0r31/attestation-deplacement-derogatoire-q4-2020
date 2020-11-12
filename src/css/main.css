@@ -664,3 +664,7 @@ input[type=number] {
 .fieldset-error {
   border: 3px solid red;
 }
+
+.my-generate-btn {
+  width: 100%;
+}
